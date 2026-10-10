@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Financial Risk Intelligence</title>
+  <meta name="description" content="An agentic AI system for regulatory research, liquidity risk analysis and evidence-grounded independent review.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,520;9..144,640&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@340;460;580&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111614'/%3E%3Cpath d='M8 22V10h3.2l4.8 7.4L20.8 10H24v12h-2.6v-7.2L17.2 22h-2.4l-4.2-7.2V22H8z' fill='%23e6c48a'/%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="nav">
+    <a class="mark" href="#overview" data-nav="overview">
+      <span class="mark-seal" aria-hidden="true"></span>
+      <span>Financial Risk Intelligence</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#overview" data-nav="overview">Overview</a>
+      <a href="#cases" data-nav="cases">Cases</a>
+      <a href="#architecture" data-nav="architecture">Architecture</a>
+      <a href="#evaluation" data-nav="evaluation">Evaluation</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="view is-on" id="view-overview">
+      <div class="hero">
+        <p class="kicker">Portfolio · liquidity risk · second-line review</p>
+        <h1>Financial Risk Intelligence</h1>
+        <p class="byline">Built by Luoran Wu <a href="https://www.linkedin.com/in/luoranwu" target="_blank" rel="noreferrer">LinkedIn</a></p>
+        <p class="lede">An agentic AI system for regulatory research, liquidity risk analysis and evidence-grounded independent review.</p>
+        <div class="hero-actions">
+          <a class="btn solid" href="#cases" data-nav="cases">Explore the agent</a>
+          <a class="btn ghost" href="#architecture" data-nav="architecture">See the workflow</a>
+        </div>
+      </div>
+
+      <div class="cards">
+        <button type="button" data-case="research">
+          <span>01</span>
+          <h2>Regulatory Intelligence</h2>
+          <p>Search ECB, EBA and Basel supervisory material and answer with the passage the claim came from.</p>
+        </button>
+        <button type="button" data-case="scenario">
+          <span>02</span>
+          <h2>Liquidity Scenario Analysis</h2>
+          <p>Run a liquidity scenario and calculate the coverage ratio in Python, including the inflow cap. The model does not do the arithmetic.</p>
+        </button>
+        <button type="button" data-case="review">
+          <span>03</span>
+          <h2>Independent AI Review</h2>
+          <p>A second step checks that the conclusion is supported by the retrieved evidence, and refuses when the instrument is not in the corpus.</p>
+        </button>
+      </div>
+
+      <p class="stack">Python · LLM · RAG · LangGraph · Vector Search · Agentic AI</p>
+      <p class="quiet">The briefings are analytical notes on public standards. They are not a substitute for the official text, and the desk does not give legal advice.</p>
+    </section>
+
+    <section class="view" id="view-cases">
+      <div class="demo-shell">
+        <div class="chat">
+          <div class="chat-top">
+            <div>
+              <p class="kicker">Try an example</p>
+              <h2>Three cases from the pipeline</h2>
+            </div>
+            <p class="status-line">Interactive demonstration based on representative runs of the underlying RAG and agentic pipeline.</p>
+          </div>
+          <div class="prompts" id="prompts"></div>
+          <div class="thread" id="thread">
+            <div class="empty" id="empty-state">
+              <p>Choose a case. The trace on the right is the system’s execution record: retrieved passages, tool calls, and the review. It is not a model’s hidden reasoning, and this page does not call an API.</p>
+            </div>
+          </div>
+        </div>
+        <aside class="trace-panel">
+          <div class="trace-head">
+            <p class="kicker">Agent trace</p>
+            <p id="trace-caption">Waiting for a question</p>
+          </div>
+          <ol class="trace" id="trace"></ol>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="view-architecture">
+      <div class="arch-layout">
+        <div>
+          <p class="kicker">Architecture</p>
+          <h2>One question, several checked steps</h2>
+          <p class="lede slim">Hover a stage. This is the workflow the three cases replay, and the one the local pipeline implements.</p>
+          <div class="arch" id="arch">
+            <button type="button" class="node" data-stage="query">User query</button>
+            <i class="down" aria-hidden="true"></i>
+            <button type="button" class="node" data-stage="orchestrator">Orchestrator</button>
+            <i class="down" aria-hidden="true"></i>
+            <div class="split">
+              <button type="button" class="node" data-stage="search">Regulatory search</button>
+              <button type="button" class="node" data-stage="scenario">Scenario analysis</button>
+              <button type="button" class="node" data-stage="calculator">Risk metric calculator</button>
+            </div>
+            <div class="split sub">
+              <button type="button" class="node minor" data-stage="vector">Vector index</button>
+              <button type="button" class="node minor" data-stage="python-scenario">Python</button>
+              <button type="button" class="node minor" data-stage="python-calc">Python</button>
+            </div>
+            <i class="down" aria-hidden="true"></i>
+            <button type="button" class="node" data-stage="draft">Grounded generation</button>
+            <i class="down" aria-hidden="true"></i>
+            <button type="button" class="node" data-stage="reviewer">Risk reviewer</button>
+            <i class="down" aria-hidden="true"></i>
+            <button type="button" class="node" data-stage="citations">Citation check</button>
+            <i class="down" aria-hidden="true"></i>
+            <button type="button" class="node final" data-stage="answer">Final answer</button>
+          </div>
+        </div>
+        <aside class="stage-note" id="stage-note">
+          <p class="kicker">Stage</p>
+          <h3 id="stage-title">Orchestrator</h3>
+          <p id="stage-body">Decides whether the question needs a search, a comparison, a ratio, or a scenario. A named instrument that is not in the corpus is refused rather than answered from memory.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="view-evaluation">
+      <div class="eval-head">
+        <div>
+          <p class="kicker">Evaluation and safety</p>
+          <h2>Measured on the same 60 questions</h2>
+          <p class="lede slim">Closed book, basic retrieval, hybrid retrieval, and the full desk. Figures are the latest local run of that bench, not targets.</p>
+        </div>
+      </div>
+      <div class="metric-grid" id="metric-grid"></div>
+      <div class="chart-card">
+        <div class="chart-head">
+          <h3>Basic retrieval versus the agentic desk</h3>
+          <p id="chart-note"></p>
+        </div>
+        <div id="chart"></div>
+      </div>
+      <p class="quiet" id="eval-footnote"></p>
+    </section>
+  </main>
+  <footer class="colophon">
+    <p>Built by Luoran Wu</p>
+    <p>Financial Risk · Python · RAG · Agentic AI</p>
+    <a href="https://www.linkedin.com/in/luoranwu" target="_blank" rel="noreferrer">LinkedIn</a>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
